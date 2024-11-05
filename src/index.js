@@ -16,6 +16,9 @@ app.use('/products', routesProducts);
 app.use('/orders', routesOrders);
 app.use('/users', routesUsers);
 app.use('/auth', routesAuth);
+app.get('/', (req, res) => {
+  res.send('API de la tienda online');
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
