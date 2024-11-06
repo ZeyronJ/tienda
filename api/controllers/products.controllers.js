@@ -2,7 +2,7 @@ import { pool } from '../config/db_config.js'; // revisar ruta
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await pool.query('SELECT * FROM products');
+    const products = await pool.query('SELECT * FROM products ORDER BY id ASC');
     res.status(200).json(products.rows);
   } catch (error) {
     console.error('Error al obtener los products', error);

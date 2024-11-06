@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await pool.query('SELECT * FROM users');
+    const users = await pool.query('SELECT * FROM users ORDER BY id ASC');
     res.status(200).json(users.rows);
   } catch (error) {
     console.error('Error al obtener los users', error);
@@ -48,43 +48,45 @@ export const createUsers = async (req, res) => {
   }
 };
 
-// export const updateUsersById = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const { name, password, email, role } = req.body;
-//     if (!name && !password && !email && !role) {
-//       return res.status(400).send('Faltan datos para actualizar');
-//     }
-//     const fieldsToUpdate = [];
-//     const values = [];
+export const updateUsersById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, password, email, role } = req.body;
+    if (!name && !password && !email && !role) {
+      return res.status(400).send('Faltan datos para actualizar');
+    }
+    const fieldsToUpdate = [];
+    const values = [];
 
-//     if (name) {
-//       fieldsToUpdate.push('name = $' + (fieldsToUpdate.length + 1));
-//       values.push(name);
-//     }
-//     if (password) {
-//       fieldsToUpdate.push('password = $' + (fieldsToUpdate.length + 1));
-//       values.push(password);
-//     }
-//     if (email) {
-//       fieldsToUpdate.push('email = $' + (fieldsToUpdate.length + 1));
-//       values.push(email);
-//     }
-//     if (role) {
-//       fieldsToUpdate.push('role = $' + (fieldsToUpdate.length + 1));
-//       values.push(role);
-//     }
+    if (name) {
+      fieldsToUpdate.push('name = $' + (fieldsToUpdate.length + 1));
+      values.push(name);
+    }
+    if (password) {
+      fieldsToUpdate.push('password = $' + (fieldsToUpdate.length + 1));
+      values.push(password);
+    }
+    if (email) {
+      fieldsToUpdate.push('email = $' + (fieldsToUpdate.length + 1));
+      values.push(email);
+    }
+    if (role) {
+      fieldsToUpdate.push('role = $' + (fieldsToUpdate.length + 1));
+      values.push(role);
+    }
 
-//     values.push(id);
-//     const query = `UPDATE users SET ${fieldsToUpdate.join(', ')} WHERE id = $${values.length}`;
-//     await pool.query(query, values);
+    values.push(id);
+    const query = `UPDATE users SET ${fieldsToUpdate.join(', ')} WHERE id = $${
+      values.length
+    }`;
+    await pool.query(query, values);
 
-//     res.status(200).json({ message: 'Usuario actualizado correctamente' });
-//   } catch (error) {
-//     console.error('Error al actualizar el usuario', error);
-//     res.status(500).json({ message: 'Error interno del servidor' });
-//   }
-// };
+    res.status(200).json({ message: 'Usuario actualizado correctamente' });
+  } catch (error) {
+    console.error('Error al actualizar el usuario', error);
+    res.status(500).json({ message: 'Error interno del servidor' });
+  }
+};
 
 export const deleteUsersById = async (req, res) => {
   try {

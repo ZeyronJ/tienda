@@ -4,6 +4,7 @@ import {
   deleteUsersById,
   getUsers,
   getUsersById,
+  updateUsersById,
 } from '../controllers/users.controllers.js';
 
 const router = Router();
@@ -11,7 +12,7 @@ const router = Router();
 router.get('/', getUsers);
 router.get('/:id', getUsersById);
 router.post('/', createUsers);
-// router.put('/:id');
+router.put('/:id', updateUsersById);
 router.delete('/:id', deleteUsersById);
 
 export default router;

@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "description": "",
-  "main": "src/index.js",
+  "main": "api/index.js",
   "scripts": {
-    "dev": "nodemon src",
-    "start": "node src"
+    "dev": "nodemon api",
+    "start": "node api"
   },
   "keywords": [],
   "author": "",
