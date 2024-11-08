@@ -32,7 +32,7 @@ export const register = async (req, res) => {
     res.setHeader('Authorization', `Bearer ${jwtToken}`);
     res
       .status(201)
-      .json({ message: 'Registro exitoso', user: newUser, jwtToken });
+      .json({ message: 'Registro exitoso', role: newUser.role, jwtToken });
   } catch (error) {
     console.error('Error al procesar la solicitud de registro:', error);
     res.status(500).send('Error interno del servidor');
@@ -60,14 +60,13 @@ export const login = async (req, res) => {
       expiresIn: '2m',
     });
     res.setHeader('Authorization', `Bearer ${jwtToken}`);
-    res
-      .status(201)
-      .json({
-        message: 'Login exitoso',
-        userName: user.name,
-        email: user.email,
-        jwtToken,
-      });
+    res.status(201).json({
+      message: 'Login exitoso',
+      userName: user.name,
+      email: user.email,
+      role: user.role,
+      jwtToken,
+    });
   } catch (error) {
     console.error('Error al procesar la solicitud de inicio de sesión:', error);
     res.status(500).send('Error interno del servidor');
