@@ -65,6 +65,7 @@ export const login = async (req, res) => {
       userName: user.name,
       email: user.email,
       role: user.role,
+      userId: user.id,
       jwtToken,
     });
   } catch (error) {
