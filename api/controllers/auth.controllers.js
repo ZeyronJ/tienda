@@ -7,7 +7,9 @@ export const register = async (req, res) => {
     const { name, email, password, role } = req.body; // Cambié las variables aquí
     if (!name || !email || !password)
       return res.status(400).json({
+      err_code: 400,
       message: 'Faltan datos obligatorios'
+
     });
     const userRole = role || 'usuario'; // Si no se envía rol, se asigna 'usuario'
 
